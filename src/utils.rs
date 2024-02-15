@@ -7,7 +7,7 @@ pub fn clear_screen() {
     , format!("             [{}]=> @M0l0d0st_vnutri\n", "Telegram".blue())
     , format!("             [{}]=> https://zelenka.guru/members/3060240/\n", "Форум".green())
     , format!("             [{}]=> https://zelenka.guru/threads/6638820/\n", "Тема на форуме".green())
-    , format!("             [{}]=> github\n\n", "https://github.com/molodost-vnutri/ulp_normalize/".bright_black())
+    , format!("             [{}]=> https://github.com/molodost-vnutri/ulp_normalize/\n\n", "Github".bright_black())
     );
 
     if cfg!(target_os = "windows") {
