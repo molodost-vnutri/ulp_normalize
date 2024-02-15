@@ -115,7 +115,8 @@ pub fn return_path() -> Option<(bool, String)> {
         std::io::stdout().flush().unwrap();
         std::io::stdin().read_line(&mut path).unwrap();
 
-        path = path.trim().replace("\"", "").replace("& '", "").replace("'", "").replace(" ", "");
+        path = path.trim().replace("& '", "").replace("'", "");
+        path.retain(|c| c != '"');
 
         let link_path = Path::new(&path);
         
@@ -125,6 +126,9 @@ pub fn return_path() -> Option<(bool, String)> {
             } else if link_path.is_file() {
                 return Some((true, path));
             } 
-        } else { println!("Путь: {} не найден", path.trim()); }
+        } else { 
+            println!("Путь {} не найден", path.trim());
+            let _ = std::io::stdin().read_line(&mut String::new());
+        }
     }
 }
