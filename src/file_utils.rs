@@ -35,7 +35,7 @@ pub fn start(file: &str) {
     let file_ = File::open(file).unwrap();
     let reader = BufReader::new(file_);
     for line in std::io::BufReader::lines(reader) {
-        if let Some((stat, good_, bad_, unknown_, android_)) = write(&good, &bad, &unknown, &android) {
+        if let Some((stat, good_, bad_, unknown_, android_)) = write(&good, &bad, &unknown, &android, true) {
             match stat {
                 true => {
                     good_result += good_;
@@ -64,14 +64,21 @@ pub fn start(file: &str) {
             }
         }
     }
+    good_result += good.len();
+    bad_result += bad.len();
+    unknown_result += unknown.len();
+    android_result += android.len();
+    clear_screen();
+    println!("С файла: {}\n    Хороших строк: {}\n    Плохих строк : {}\n    Unknown строк: {}\n    Android строк: {}", file, good_result.to_string().green(), bad_result.to_string().red(), unknown_result.to_string().yellow(), android_result.to_string().yellow());
+    let _ = write(&good, &bad, &unknown, &android, false);
 }
 
-fn write(good: &Vec<String>, bad: &Vec<String>, unknown: &Vec<String>, android: &Vec<String>) -> Option<(bool, usize, usize, usize, usize)> {
+fn write(good: &Vec<String>, bad: &Vec<String>, unknown: &Vec<String>, android: &Vec<String>, write: bool) -> Option<(bool, usize, usize, usize, usize)> {
     let good_len = good.len();
     let android_len = android.len();
     let unknonw_len = unknown.len();
     let bad_len = bad.len();
-    if good_len + android_len + unknonw_len + bad_len < 100000 { return Some((false, 0, 0, 0, 0)); }
+    if good_len + android_len + unknonw_len + bad_len < 100000 && write { return Some((false, 0, 0, 0, 0)); }
     let mut good_file = OpenOptions::new()
         .create(true)
         .append(true)
