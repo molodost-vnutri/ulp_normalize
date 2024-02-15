@@ -36,7 +36,8 @@ fn main() {
         .open("log.txt")
         .unwrap();
     for line in log.iter() {
-        let _ =log_file.write(format!("Обработал файл: {}\n", line).as_bytes());
+        let _ = log_file.write(format!("Обработал файл: {}\n", line).as_bytes());
     }
+    println!("Завершил обработку");
     let _ = std::io::stdin().read_line(&mut String::new()).unwrap();
 }
