@@ -4,8 +4,9 @@ use std::{
         BufRead,
         BufReader, Write
     },
-    path::Path
+    path::Path,
 };
+use colored::Colorize;
 
 use regex::Regex;
 
@@ -46,7 +47,7 @@ pub fn start(file: &str) {
                     unknown.clear();
                     android.clear();
                     clear_screen();
-                    println!("С файла: {} вышло\n    Хороших строк: {}\n    Плохих строк: {}\n    Unknown строк: {}\n    Android строк: {}", file, good_result, bad_result, unknown_result, android_result);
+                    println!("С файла: {}\n    Хороших строк: {}\n    Плохих строк : {}\n    Unknown строк: {}\n    Android строк: {}", file, good_result.to_string().green(), bad_result.to_string().red(), unknown_result.to_string().yellow(), android_result.to_string().yellow());
                 
                 }
                 _ => {}
