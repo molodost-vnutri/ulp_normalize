@@ -53,14 +53,15 @@ pub fn start(file: &str) {
                 _ => {}
             }
         }
-        let line = line.unwrap();
-        if let Some((url, stat)) = text_utils::return_valid_line(&line, &email_regex, &login_regex, &number_regex, charses.clone(), bad_word.clone()) {
-            match stat {
-                0 => good.push(url),
-                1 => android.push(url),
-                2 => unknown.push(url),
-                3 => bad.push(url),
-                _ => {}
+        if let Ok(line) = line {
+            if let Some((url, stat)) = text_utils::return_valid_line(&line, &email_regex, &login_regex, &number_regex, charses.clone(), bad_word.clone()) {
+                match stat {
+                    0 => good.push(url),
+                    1 => android.push(url),
+                    2 => unknown.push(url),
+                    3 => bad.push(url),
+                    _ => {}
+                }
             }
         }
     }
